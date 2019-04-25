@@ -1,0 +1,20 @@
+<div class="card">
+  <div class="card-header">
+    <p>{{ title }}</p>
+  </div>
+  <div class="card-body" *ngIf="product; else noprodct">
+    <h5 class="card-title">{{ product.productName }}</h5>
+    <p class="card-text">
+      {{ product.description }}
+     
+    </p>
+    <p> Number of stars  <pm-star [rating]="product.starRating"></pm-star> </p> 
+    <a  (click)="onClik()" class="btn btn-primary">Go back</a>
+
+  </div>
+  <ng-template #noprodct>
+    <div class="card-body">
+      <h5 class="card-title">No prodct to display</h5>
+    </div>
+  </ng-template>
+</div>

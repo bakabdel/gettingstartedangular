@@ -1,0 +1,51 @@
+<div class="card ">
+  <div class="card-header bg-primary" style="color:white">
+    {{ title }}
+  </div>
+  <div class="card-block" style="padding: 10px;">
+    <div class="row">
+      <div class="col-md-2">Filtred by :</div>
+      <div class="col-md-4">
+        <input type="text" [(ngModel)]="filter" class="form-control" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <h4>Filterd by : {{ filter }}</h4>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="table-responsiv-md" *ngIf="products && products.length">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          <button (click)="togglmage()" class="btn btn-primary ">
+            {{ isImageShowing ? "Hide" : "Show" }}
+          </button>
+        </th>
+        <th>Product</th>
+        <th>available</th>
+        <th>Price</th>
+        <th>Start</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of filtredProducts">
+        <td>
+          <img
+            [src]="product.imageUrl"
+            *ngIf="isImageShowing"
+            [alt]="product.productName"
+            [ngStyle]="{ width: imagWidth, margin: imageMargin }"
+          />
+        </td>
+        <td> <a [routerLink]="['/products', product. productId]" >{{ product.productName | uppercase }}</a></td>
+        <td>{{ product.productCode | lowercase | transformToSpace:"-" }}</td>
+        <td>{{ product.price | currency:'USD':"symbol":'1.2-2' }}</td>
+        <td><pm-star [rating]="product.starRating" (clikedStar)="onRecupered($event)"></pm-star> </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
